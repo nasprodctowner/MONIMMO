@@ -2,12 +2,13 @@ package service.session;
 import service.entity.Mandat;
 import service.entity.Vendeur;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//On choisit stateless car il y a pas d'aspect conversationnel entre le vendeur et l'agence ?
-@Stateless(mappedName = "Monimmo")
+//On choisit stateless car il y a un aspect conversationnel entre le vendeur et l'agence ?
+@Stateful(mappedName = "Monimmo")
+
 public class MonimmoBean implements MonimmoItf{
 
     @PersistenceContext(unitName = "monimmoPU")
@@ -28,7 +29,9 @@ public class MonimmoBean implements MonimmoItf{
 
     @Override
     public void signer(int numMandat) {
-        entityManager.find(Mandat.class,numMandat).setSignature(true);
+        Mandat m = entityManager.find(Mandat.class,numMandat);
+        m.setSignature(true);
+        entityManager.flush();
     }
 
 }

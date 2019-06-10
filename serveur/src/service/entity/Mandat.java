@@ -8,8 +8,7 @@ import javax.persistence.*;
 public class Mandat {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int numMandat;
     private boolean signature = false;
 
@@ -21,6 +20,8 @@ public class Mandat {
         this.signature = signature;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getNumMandat() {
         return numMandat;
     }

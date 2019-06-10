@@ -67,10 +67,7 @@ public class Client {
 
             connection.close();
 
-
-
             // pour la derniere question j'ai fait ça avec le webservice soap additionneur, il suffit de remplacer par le ws de l'exam
-
             //premiere étape :  cd src et wsimport -d ../build -s . "http://localhost:8080/PublieurBeanService/PublieurBean?wsdl" -p importservice
             // on chope le lien dans la balise location du wsdl et on rajoute ?wsdl
 

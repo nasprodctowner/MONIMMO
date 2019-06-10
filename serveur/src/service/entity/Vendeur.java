@@ -7,8 +7,7 @@ import javax.persistence.*;
 public class Vendeur {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
     private String nom;
 
@@ -20,6 +19,8 @@ public class Vendeur {
         this.nom = nom;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
