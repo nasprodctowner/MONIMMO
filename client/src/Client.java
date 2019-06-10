@@ -13,22 +13,6 @@ public class Client {
 
     public static void main(String[] args) {
 
-        ConnectionFactory connectionFactory=null;
-        Queue queue=null;
-        Connection connection = null;
-        Session session = null;
-        MessageProducer messageProducer = null;
-        TextMessage message = null;
-
-        try {
-            InitialContext ctx = new InitialContext();
-            connectionFactory = (ConnectionFactory) ctx.lookup("UneConnectionFactoryMonimmo");
-            queue = (Queue) ctx.lookup("uneBALMonimmo");
-        }
-        catch (Exception ex) {
-            System.err.println("erreur dans le lookup");
-            ex.printStackTrace();
-        }
 
         try {
 
@@ -38,12 +22,6 @@ public class Client {
             System.err.println("erreur dans le lookup");
             ex.printStackTrace();
         }
-
-        try {
-            connection = connectionFactory.createConnection();
-            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            messageProducer = session.createProducer(queue);
-            message = session.createTextMessage();
 
             Scanner scanner = new Scanner(System.in);
 
@@ -58,14 +36,7 @@ public class Client {
             System.out.println("Si vous souhaitez signer, entrez le numéro de votre mandat ");
             int s3 = scanner.nextInt();
 
-             monimmoItf.signer(s3);
-
-             String annonce = "Annonce numéro "+s3+" de monsieur "+s2;
-
-            message.setText(annonce);
-            messageProducer.send(message);
-
-            connection.close();
+            monimmoItf.signer(s3);
 
             // pour la derniere question j'ai fait ça avec le webservice soap additionneur, il suffit de remplacer par le ws de l'exam
             //premiere étape :  cd src et wsimport -d ../build -s . "http://localhost:8080/PublieurBeanService/PublieurBean?wsdl" -p importservice
@@ -86,9 +57,7 @@ public class Client {
             //et donc : port.publier(annonce) => car elle prend un argument String
 
 
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+
 
     }
 }
